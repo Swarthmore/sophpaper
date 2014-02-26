@@ -71,7 +71,8 @@ def generate_pdf(response):
 	pdf_file_name = "Sophomore_Paper_" + response["Banner ID"] + ".pdf"
 	# If the banner ID isn't present, save with the response ID
 	if not response["Banner ID"]: 
-		pdf_file_name = "Sophomore_Paper_" + response["ResponseID"] + ".pdf"
+		# Use the username from the email address
+		pdf_file_name = "Sophomore_Paper_" + response["EmailAddress"].split("@")[0] + ".pdf"
 	pdf = SimpleDocTemplate(pdf_file_name, pagesize = letter, rightMargin=72,leftMargin=72, topMargin=36,bottomMargin=18)
 
 		
@@ -156,6 +157,12 @@ def generate_pdf(response):
 	##################################
 	# Other notes
 	##################################
+	
+	# Advisor
+	story.append(Paragraph("Sophomore Plan Advisor(s)", style["Heading2"]))
+	advisor = response["Sophomore Plan Advisor(s): please list the name of your advisor(s) / for both the major or special major and any minor"]
+	story.append(Paragraph(advisor, style["Normal"]))	
+	
 	story.append(Paragraph("Honors?", style["Heading2"]))
 	honors = "No"		# Assume no
 	if response["Honors?"] == "1":
