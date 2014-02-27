@@ -61,16 +61,16 @@ def slicedict(d, s):
 def generate_pdf(response):
 
 	# Make sure we have all the proper information
-	#if not (response["Name"] and response["EmailAddress"] and response["Banner ID"]):
+	#if not (response["Name"] and response["EmailAddress"] and response["BannerID"]):
 	#	print "Not enough information to process response #%s" % response["ResponseID"]
 	#	return
 
 	print response["Name"]
 
 	# Set up the PDF file
-	pdf_file_name = "Sophomore_Paper_" + response["Banner ID"] + ".pdf"
+	pdf_file_name = "Sophomore_Paper_" + response["BannerID"] + ".pdf"
 	# If the banner ID isn't present, save with the response ID
-	if not response["Banner ID"]: 
+	if not response["BannerID"]: 
 		# Use the username from the email address
 		pdf_file_name = "Sophomore_Paper_" + response["EmailAddress"].split("@")[0] + ".pdf"
 	pdf = SimpleDocTemplate(pdf_file_name, pagesize = letter, rightMargin=72,leftMargin=72, topMargin=36,bottomMargin=18)
@@ -84,11 +84,11 @@ def generate_pdf(response):
 	story.append(Paragraph("Sophomore Paper for %s" % response["Name"], style["Heading2"]))
 	
 	# Sub-heading (class year, email, date completed)
-	if not response["Class Year"]:
-		response["Class Year"] = "unknown"
+	if not response["ClassYear"]:
+		response["ClassYear"] = "unknown"
 	
 	
-	sub_heading = "Class year: %s <br/>%s<br/>Completed %s" % (response["Class Year"], response["EmailAddress"], response["EndDate"])
+	sub_heading = "Class year: %s <br/>%s<br/>Completed %s" % (response["ClassYear"], response["EmailAddress"], response["EndDate"])
 	story.append(Paragraph(sub_heading, style["Heading4"]))
 	
 	
@@ -216,7 +216,7 @@ def generate_pdf(response):
 	# Return an index for the student with 'Name', 'BannerID', 'Major', 'Minor'
 	index = {}
 	index["Name"] = response["Name"]
-	index["BannerID"] = response["Banner ID"]
+	index["BannerID"] = response["BannerID"]
 	index["Major"] = "|".join(majors)
 	index["Minor"] = "|".join(minors)
 	
