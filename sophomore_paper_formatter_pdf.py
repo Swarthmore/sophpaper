@@ -220,6 +220,12 @@ def generate_pdf(response):
 	index["Major"] = "|".join(majors)
 	index["Minor"] = "|".join(minors)
 	
+	if response["Honors?"] == "1":
+		index["Honors"] = "Y"
+	else: 
+		index["Honors"] = "N"
+	
+	
 	return index
 
 
@@ -240,7 +246,7 @@ input_file = csv.DictReader(f, delimiter=',')
 
 # Setup the index file
 index_file = open('sophomore_paper_index.csv','wb')
-fieldnames = ['Name', 'BannerID', 'Major', 'Minor']
+fieldnames = ['Name', 'BannerID', 'Major', 'Minor', 'Honors']
 csvwriter = csv.DictWriter(index_file, delimiter=',', fieldnames=fieldnames)
 csvwriter.writerow(dict((fn,fn) for fn in fieldnames))
 
